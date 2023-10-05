@@ -1,0 +1,36 @@
+rm(list=ls())
+RandomUnits $<$- read.csv2(file = "12 - Random Units
+- R Imput.csv" ,sep=";")
+dimRandomUnits $<$- dim(RandomUnits)
+rowRandomUnits $<$- dimRandomUnits [1]
+rowRandomUnits
+columnRandomUnits $<$- dimRandomUnits[2]
+columnRandomUnits
+AllPoultryUnits $<$- read.csv2(file = "2
+2 - All Poultry Units - R Imput.csv" ,sep=";")
+dimAllPoultryUnits $<$- dim(AllPoultryUnits)
+rowAllPoultryUnits $<$- dimAllPoultryUnits [1]
+rowAllPoultryUnits
+columnAllPoultryUnits $<$- dimAllPoultryUnits[2]
+columnAllPoultryUnits
+i $<$- 1
+j $<$- 1
+k $<$- 1
+class(RandomUnits\$Sample.No)
+AllPoultryUnits\$Selected $<$- 0
+for (i in seq(1, rowRandomUnits, by=1)) \{
+for (j in seq(k, rowAllPoultryUnits, by=1)) \{
+if (RandomUnits\$Sample.No[i] $<$
+AllPoultryUnits\$Cumulative[k])\{
+AllPoultryUnits\$Selected[k] $<$-
+RandomUnits\$Sample.No[i]
+k $<$- k+1
+print(k)
+break
+\}
+k $<$- k+1
+print(k)
+\}
+\}
+write.csv(AllPoultryUnits,"MozhiBariMyLoves.csv",
+row.names=FALSE,fileEncoding = "UTF- 8" )
