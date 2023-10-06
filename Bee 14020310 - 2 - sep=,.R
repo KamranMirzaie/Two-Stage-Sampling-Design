@@ -1,0 +1,68 @@
+########################################   Start Adenoviruses
+rm(list=ls())#پاک کردن محیط و نتایج قبلی  - پاک کردن کلیه متغیرهای قبلی
+setwd("F:\\0 Mozhgan & Baran My Loves\\Sample Size & Sample Design\\1 Bee\\Zone1\\3 R Related Files")
+RandomUnits <- read.csv2(file = "1-2 Random Units - R Imput.csv" ,sep=",")# فراخوانی فایل اکسل شماره های تصادفی
+dimRandomUnits <- dim(RandomUnits)#تعیین تعداد ردیف و تعداد ستون فایل شماره های تصادفی
+rowRandomUnits <- dimRandomUnits [1]#تخصیص متغیر برای تعداد ردیف های فایل شماره های تصادفی
+rowRandomUnits#نمایش تعداد ردیف های فایل شماره های تصادفی
+columnRandomUnits <- dimRandomUnits[2]# تخصیص متغیر برای تعداد ستون های فایل شماره های تصادفی
+columnRandomUnits # نمایش تعداد ستون های فایل شماره های تصادفی
+
+AllPoultryUnits <- read.csv2(file = "2-2 All Poultry Units - R Imput.csv" ,sep=",")# فراخوانی فایل اکسل همه واحدهای طیور
+dimAllPoultryUnits <- dim(AllPoultryUnits)#تعیین تعداد ردیف و تعداد ستون فایل همه واحدهای طیور
+rowAllPoultryUnits <- dimAllPoultryUnits [1]#تخصیص متغیر برای تعداد ردیف های فایل همه واحدهای طیور
+rowAllPoultryUnits#نمایش تعداد ردیف های فایل همه واحدهای طیور
+columnAllPoultryUnits <- dimAllPoultryUnits[2]# تخصیص متغیر برای تعداد ستون های فایل همه واحدهای طیور
+columnAllPoultryUnits # نمایش تعداد ستون های فایل همه واحدهای طیور
+
+##شروع شماره گذاری واحدها برای مشخص کردن تعداد ردیف های مربوط به یک واحد اپیدمیولوژیک
+i <- 1 
+j <- 1
+k <- 1
+class(RandomUnits$Sample.No)#کلاس متغیر را نشان بده
+#RandomUnits$Sample.No[1]<-as.numeric(RandomUnits$Sample.No[1])
+
+#AllPoultryUnits$Cumulative<-as.numeric(as.character(AllPoultryUnits$Cumulative))
+
+AllPoultryUnits$Selected <- 0#تخصیص 0 به سمامی سلول های ستون جدید
+for (i in seq(1, rowRandomUnits, by=1)) {#تشکیل حلقه از یک تا تعداد ردیف های فایل اکسل شماره های تصادفی
+     
+     for (j in seq(k, rowAllPoultryUnits, by=1)) {#تشکیل حلقه از یک تا تعداد ردیف های فایل اکسل همه واحدهای طیور  
+       #اگر شماره انتخاب شده از فایل اکسل شماره های تصادفی کوچکتر یا مساوی ظرفیت تجمعی فایل اکسل همه واحدها بود   
+        
+        if (RandomUnits$Sample.No[i] < AllPoultryUnits$Cumulative[k]){
+         #print (j) 
+         AllPoultryUnits$Selected[k] <- RandomUnits$Sample.No[i]#برای آن ردیف عدد جی را قرار بده
+         
+         #print(AllPoultryUnits$EpiUnitCode[j])#کد های انتخاب شده را چاپ کن
+         k <- k+1
+         print(k)
+         break
+       }
+        k <- k+1
+        print(k)
+        }#پایان حلقه 
+      
+}#پایان حلقه
+write.csv(AllPoultryUnits,"3 All PoultryUnits With Sellected Units - R Export.csv",row.names=FALSE,fileEncoding = "UTF-8")#ذخیره دیتافریم در یک فایل با پسوند سی اس وس CSV
+### Tests:
+i
+j
+RandomUnits$Sample.No[1]
+AllPoultryUnits$Cumulative[1]
+
+b=RandomUnits$Sample.No[1]+AllPoultryUnits$Cumulative[1]
+b
+RandomUnits$Sample.No[i]
+AllPoultryUnits$Cumulative[82]
+rowRandomUnits
+rowAllPoultryUnits
+###
+########################################   End Adenoviruses
+
+
+
+
+
+
+
